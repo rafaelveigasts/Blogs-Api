@@ -25,4 +25,6 @@ que retorna um objeto contendo a tabela user, com as colunas id, displayName, em
 
 qdo quisermos efetuar qualquer tipo de alteração na tabela, nós alteramos o model e efetuamos o migration para ter a tabela versionada.
 
+aqui nós declaramos as colunas da tabela, que são: displayName, email, password e image.
+Não declaramos o id pois a tabela em si não tem id, os campo que vão dentro dela sim, por isso nós declaramos o id no migrations.
 */

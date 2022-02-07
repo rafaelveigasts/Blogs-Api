@@ -35,3 +35,5 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;
+
+// não mecher aqui se não souber o que está fazendo
