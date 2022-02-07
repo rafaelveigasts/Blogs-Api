@@ -15,6 +15,7 @@ const create = async ({ displayName, email, password, image }) => {
     expiresIn: '1d',
     algorithm: 'RS256',
   };
+
   const token = jwt.sign(
     {
       data: user,
@@ -28,3 +29,10 @@ const create = async ({ displayName, email, password, image }) => {
 module.exports = {
   create,
 };
+
+/* 
+Anotações a função create: faz uma busca no banco de dados pelo email que foi passado como parâmetro, se encontrar, retorna um objeto com o código 409, se não encontrar, cria um novo usuário.
+
+O token é gerado com o jwt.sign, passando como parâmetro o objeto user, o secret e o jwtConfig.
+
+*/
