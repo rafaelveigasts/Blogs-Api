@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       displayName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       email: {
         type: Sequelize.STRING
@@ -17,9 +17,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      image:{
+      image: {
         type: Sequelize.STRING
-      }
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
