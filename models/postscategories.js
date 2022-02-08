@@ -1,4 +1,4 @@
-odule.exports = (sequelize, _DataTypes) => {
+module.exports = (sequelize, _DataTypes) => {
   const PostsCategories = sequelize.define('PostsCategories',
   {}, 
   { timestamps: false });

@@ -2,8 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const {
   isEmailValid,
-  isNameValid,
   isPasswordValid,
+  isNameValid,
+  
 } = require('./middlewares/validation');
 const userController = require('./controllers/user');
 
