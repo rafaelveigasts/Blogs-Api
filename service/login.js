@@ -10,7 +10,7 @@ const login = async ({ email, password }) => {
   if (!user || user.password !== password) {
     return {
       code: 400,
-      message: 'Campos inválidos',
+      message: 'Invalid fields',
     };
   }
 
@@ -19,7 +19,7 @@ const login = async ({ email, password }) => {
     algorithm: 'HS256',
   };
 
-  const token = jwt.sign({ data: user.email }, secret, jwtConfig);
+  const token = jwt.sign({ data: user }, secret, jwtConfig);
   return token;
 };
 

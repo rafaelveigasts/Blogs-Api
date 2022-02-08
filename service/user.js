@@ -2,15 +2,17 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 const secret = process.env.JWT_SECRET;
-const User = require('../models/user');
+const { User } = require('../models');
 
 const create = async ({ displayName, email, password, image }) => {
   const userIsRegistred = await User.findOne({ where: { email } });
+  console.log('service userisregistred', userIsRegistred);
   if (userIsRegistred) {
     return {
       code: 409, message: { message: 'User already registred' } };
   }
   const user = await User.create({ displayName, email, password, image });
+  console.log('service user', user);
   const jwtConfig = {
     expiresIn: '1d',
     algorithm: 'HS256',
