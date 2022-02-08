@@ -1,31 +1,17 @@
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
-
-const secret = process.env.JWT_SECRET;
-const { User } = require('../models');
-
-const create = async ({ displayName, email, password, image }) => {
-  const userIsRegistred = await User.findOne({ where: { email } });
-  console.log('service userisregistred', userIsRegistred);
-  if (userIsRegistred) {
-    return {
-      code: 409, message: { message: 'User already registred' } };
-  }
-  const user = await User.create({ displayName, email, password, image });
-  console.log('service user', user);
-  const jwtConfig = {
-    expiresIn: '1d',
-    algorithm: 'HS256',
-  };
-
-  const token = jwt.sign({ data: user }, secret, jwtConfig);
-  return token;
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    displayName: { type: DataTypes.STRING },
+    email: { type: DataTypes.STRING },
+    password: { type: DataTypes.STRING },
+    image: { type: DataTypes.STRING },
+  },
+  {
+    timestamps: false,
+    tableName: 'Users',
+  });
+  return User;
 };
-
-module.exports = {
-  create,
-};
-
 /* 
 Anotações a função create: faz uma busca no banco de dados pelo email que foi passado como parâmetro, se encontrar, retorna um objeto com o código 409, se não encontrar, cria um novo usuário.
 
