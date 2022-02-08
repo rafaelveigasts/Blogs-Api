@@ -1,54 +1,41 @@
 const isNameValid = (req, res, next) => {
-  const { body } = req;
+  const { displayName } = req.body;
 
-  if (!body.Displayname) {
-    return res.status(400).json({ message: '"Displayname" is required' });
+  if (!displayName) {
+    return res.status(400).json({ message: '"displayName" is required' });
   }
-
-  const { name } = body;
-
-  if (name.length < 8) {
+  if (displayName.length < 8) {
     return res
       .status(400)
-      .json({ message: '"Displayname" must be at least 8 characters long' });
+      .json({ message: '"displayName" length must be at least 8 characters long' });
   }
 
   next();
 };
 
 const isEmailValid = (req, res, next) => {
-  const { body } = req;
+  const { email } = req.body;
 
-  if (!body.Email) {
-    return res.status(400).json({ message: '"Email" is required' });
+  if (!email || email === '') {
+    return res.status(400).json({ message: '"email" is required' });
   }
-
-  const { email } = body;
-
   if (!email.includes('@')) {
-    return res.status(400).json({ message: '"Email" is invalid' });
+    return res.status(400).json({ message: '"email" must be a valid email' });
   }
 
   next();
 };
 
 const isPasswordValid = (req, res, next) => {
-  const { body } = req;
+  const { password } = req.body;
 
-  if (!body.Password) {
+  if (!password || password === '') {
     return res.status(400).json({ message: '"Password" is required' });
   }
-
-  const { password } = body;
-
-  if (password.length < 6) {
+  if (password.length !== 6) {
     return res
       .status(400)
-      .json({ message: '"Password" must be at least 8 characters long' });
-  }
-
-  if (password === '') {
-    return res.status(400).json({ message: '"password" is required' });
+      .json({ message: '"Password" length must be 6 characters long' });
   }
 
   next();

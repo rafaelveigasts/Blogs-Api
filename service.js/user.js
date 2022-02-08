@@ -8,7 +8,7 @@ const create = async ({ displayName, email, password, image }) => {
   const userIsRegistred = await User.findOne({ where: { email } });
   if (userIsRegistred) {
     return {
-      code: 409, message: 'User already registred' };
+      code: 409, message: { message: 'User already registred' } };
   }
   const user = await User.create({ displayName, email, password, image });
   const jwtConfig = {
@@ -18,7 +18,7 @@ const create = async ({ displayName, email, password, image }) => {
 
   const token = jwt.sign(
     {
-      data: user,
+      data: user.email,
     },
     secret,
     jwtConfig,

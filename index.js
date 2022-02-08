@@ -17,4 +17,4 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/user', isNameValid, isEmailValid, isPasswordValid, userController.create);
+app.post('/user', isNameValid, isPasswordValid, isEmailValid, userController.create);
