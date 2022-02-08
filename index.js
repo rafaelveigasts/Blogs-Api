@@ -1,10 +1,13 @@
 const express = require('express');
-const UserController = require('./Controllers/user');
+const UserController = require('./Controllers/User');
+const LoginController = require('./Controllers/Login');
 
 const {
   checkFieldExists,
   validateFields,
 } = require('./Middlewares/validateUser');
+
+const { checkLogin } = require('./Middlewares/validateLogin');
 
 const app = express();
 app.use(express.json());
@@ -15,4 +18,7 @@ app.listen(3000, () => console.log('ouvindo porta 3000!'));
 app.get('/', (request, response) => {
   response.send();
 });
+
 app.post('/user', checkFieldExists, validateFields, UserController.createUser);
+
+app.post('/login', checkLogin, LoginController.executeLogin);
