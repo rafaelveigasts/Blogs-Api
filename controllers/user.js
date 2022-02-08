@@ -6,6 +6,7 @@ const create = async (req, res) => {
     const token = await service.create({ displayName, email, password, image });
 
     if (token.message) return res.status(token.code).json(token.message);
+    return res.status(201).json({ token });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
