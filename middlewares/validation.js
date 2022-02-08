@@ -19,8 +19,9 @@ const isEmailValid = (req, res, next) => {
   if (!email || email === '') {
     return res.status(400).json({ message: '"email" is required' });
   }
-  if (!email.includes('@')) {
-    return res.status(400).json({ message: '"email" must be a valid email' });
+  if (!/^\S+@\S+\.\S+$/.test(email)) {
+    return res.status(400)
+    .json({ message: '"email" must be a valid email' });
   }
 
   next();
@@ -30,12 +31,12 @@ const isPasswordValid = (req, res, next) => {
   const { password } = req.body;
 
   if (!password || password === '') {
-    return res.status(400).json({ message: '"Password" is required' });
+    return res.status(400).json({ message: '"password" is required' });
   }
-  if (password.length !== 6) {
+  if (password.length < 6) {
     return res
       .status(400)
-      .json({ message: '"Password" length must be 6 characters long' });
+      .json({ message: '"password" length must be 6 characters long' });
   }
 
   next();
