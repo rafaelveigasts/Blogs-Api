@@ -11,6 +11,7 @@ const createUser = async (req, res) => {
     console.log('controller', user);
     if (user.message) return res.status(user.code).json(user.message);
     const token = jwt.sign({ userName: displayName, email }, key);
+    console.log('token', token);
     return res.status(201).json({ token });
   } catch (error) {
     return res.status(500).json({ message: error.message });

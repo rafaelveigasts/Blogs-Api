@@ -9,6 +9,12 @@ const getEmail = async (email) => {
 
 const createUser = async (userObj) => {
   const { displayName, email, password, image } = userObj;
+  const userEmail = await getEmail(userObj.email);
+  if (userEmail) {
+    return { code: 409, 
+      message: { message: 'User already registered' } };
+  }
+  
   const user = await User.create({
     displayName,
     email,
