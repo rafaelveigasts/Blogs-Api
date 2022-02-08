@@ -35,4 +35,5 @@ Anotações a função create: faz uma busca no banco de dados pelo email que fo
 
 O token é gerado com o jwt.sign, passando como parâmetro o objeto user, o secret e o jwtConfig.
 
+fonte finders do sequelize https://sequelize.org/v7/manual/model-querying-finders.html
 */
