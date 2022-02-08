@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const key = process.env.JWT_SECRET;
-const ServiceUser = require('../service/user');
+const ServiceUser = require('../Services/User');
 
 const createUser = async (req, res) => {
   try {
