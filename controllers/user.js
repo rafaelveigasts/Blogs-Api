@@ -1,12 +1,16 @@
-const service = require('../service/user');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-const create = async (req, res) => {
+const key = process.env.JWT_SECRET;
+const ServiceUser = require('../service/user');
+
+const createUser = async (req, res) => {
   try {
-    const { displayName, email, password, image } = req.body;
-    const token = await service.create({ displayName, email, password, image });
-
-    console.log('token controller', token);
-    if (token.message) return res.status(token.code).json(token.message);
+    const { displayName, email } = req.body;
+    const user = await ServiceUser.createUser(req.body);
+    console.log('controller', user);
+    if (user.message) return res.status(user.code).json(user.message);
+    const token = jwt.sign({ userName: displayName, email }, key);
     return res.status(201).json({ token });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -14,5 +18,5 @@ const create = async (req, res) => {
 };
 
 module.exports = {
-  create,
+  createUser,
 };

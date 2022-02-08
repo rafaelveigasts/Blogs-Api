@@ -1,11 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const {
-  isEmailValid,
-  isPasswordValid,
-  isNameValid,
-  
-} = require('./middlewares/validation');
+const { checkFieldExists, validateFields } = require('./middlewares/validation');
 const userController = require('./controllers/user');
 
 const app = express();
@@ -18,4 +13,4 @@ app.get('/', (request, response) => {
   response.send();
 });
 
-app.post('/user', isNameValid, isPasswordValid, isEmailValid, userController.create);
+app.post('/user', checkFieldExists, validateFields, userController.create);
