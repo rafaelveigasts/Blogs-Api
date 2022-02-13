@@ -1,6 +1,7 @@
 const express = require('express');
 const UserController = require('./Controllers/User');
 const LoginController = require('./Controllers/Login');
+const { checkToken } = require('./Middlewares/tokenValidation');
 
 const {
   checkFieldExists,
@@ -22,3 +23,4 @@ app.get('/', (request, response) => {
 app.post('/user', checkFieldExists, validateFields, UserController.createUser);
 
 app.post('/login', checkLogin, LoginController.executeLogin);
+app.get('/user', checkToken, UserController.getAllUsers);
