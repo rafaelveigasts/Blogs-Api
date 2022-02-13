@@ -24,10 +24,17 @@ const createUser = async (userObj) => {
   return user;
 };
 
+const getAllUsers = async () => {
+  const users = await User.findAll();
+  return users;
+};
+
 module.exports = {
   createUser,
   getEmail,
+  getAllUsers,
 };
+
 /* 
 Anotações a função create: faz uma busca no banco de dados pelo email que foi passado como parâmetro, se encontrar, retorna um objeto com o código 409, se não encontrar, cria um novo usuário.
 
