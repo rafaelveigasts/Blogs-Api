@@ -1,10 +1,9 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const { User } = require('../models/User');
 
 const secret = process.env.JWT_SECRET;
 
-const auth = async (req, res, next) => {
+const checkToken = (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
@@ -12,22 +11,13 @@ const auth = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, secret);
-
-    const user = await User.findByPk(decoded.data.id);
-
-    if (!user) {
-      return res.status(401).json({ message: 'Expired or invalid token' });
-    }
-
-    req.user = user;
-
+    jwt.verify(token, secret);
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
-}; 
+};
 
 module.exports = {
-  auth,
+  checkToken,
 };
