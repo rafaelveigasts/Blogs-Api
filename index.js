@@ -21,7 +21,7 @@ app.get('/', (request, response) => {
 });
 
 app.post('/user', checkFieldExists, validateFields, UserController.createUser);
-
 app.post('/login', checkLogin, LoginController.executeLogin);
+
 app.get('/user', checkToken, UserController.getAllUsers);
-app.get('user/:id', checkToken, UserController.getUserById);
+app.get('/user/:id', checkToken, UserController.getUserById);

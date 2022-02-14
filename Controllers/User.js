@@ -29,7 +29,8 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    const user = await ServiceUser.getUserById(req.params.id);
+    const { id } = req.params;
+    const user = await ServiceUser.getUserById(id);
     if (user.message) return res.status(user.code).json(user.message);
     return res.status(200).json(user);
   } catch (error) {
