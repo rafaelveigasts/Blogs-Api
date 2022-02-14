@@ -7,10 +7,17 @@ const createCategorie = async (name) => {
   return categorie;
 };
 
+const getAllCategories = async () => {
+  const categories = await Categorie.findAll();
+  return categories;
+};
+
 module.exports = {
   createCategorie,
+  getAllCategories,
 };
 
 /* 
 aqui criamos a categoria que recebemos do controller com o name do body e cadastramos no banco de dados
+getAllCategories retorna todas as categorias cadastradas no banco de dados
 */
