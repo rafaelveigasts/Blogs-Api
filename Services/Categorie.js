@@ -10,3 +10,7 @@ const createCategorie = async (name) => {
 module.exports = {
   createCategorie,
 };
+
+/* 
+aqui criamos a categoria que recebemos do controller com o name do body e cadastramos no banco de dados
+*/
