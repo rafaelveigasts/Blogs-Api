@@ -6,6 +6,6 @@ const validateCategorie = (req, res, next) => {
    next();
 };
 
-module.exports = validateCategorie;
+module.exports = { validateCategorie };
 
 /* fazemos essa validação para não criar uma categoria sem nome */
