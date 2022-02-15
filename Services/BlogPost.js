@@ -24,6 +24,31 @@ const insertPost = async (title, content, userId) => {
   return post;
 };
 
+const insertPostCategorie = (arrayCategories, postId) => {
+  Promise.all(
+    arrayCategories.map(async (item) => {
+      await PostCategorie.create({
+        postId,
+        categorieId: item,
+      });
+    }),
+  );
+};
+
+const createPost = async (objPost, userId) => {
+  const { title, content, categoryIds } = objPost;
+  const verifyCategory = await categorieExists(categoryIds);
+  if (verifyCategory.message) return verifyCategory;
+  const post = await insertPost(title, content, userId);
+  await insertPostCategorie(categoryIds, post.id);
+  return {
+    id: post.id,
+    userId,
+    title,
+    content,
+  };
+};
+
 module.exports = {
-  categorieExists,
+  createPost,
 };
