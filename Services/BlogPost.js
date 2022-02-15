@@ -15,6 +15,15 @@ const categorieExists = (array) => {
   return result;
 };
 
+const insertPost = async (title, content, userId) => {
+  const post = await BlogPost.create({
+    title,
+    content,
+    userId,
+  });
+  return post;
+};
+
 module.exports = {
   categorieExists,
 };
