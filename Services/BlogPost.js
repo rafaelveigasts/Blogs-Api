@@ -47,9 +47,9 @@ const createPost = async (objPost, userId) => {
 
 const getAllPosts = async () => {
   const posts = await BlogPost.findAll({
-    include: [{
-      model: User, as: 'user'},
-      { model: Categorie, as: 'categories'}],
+    include: [
+      { model: User, as: 'user' },
+      { model: Categorie, as: 'categories' }],
   });
   return posts;
 };
