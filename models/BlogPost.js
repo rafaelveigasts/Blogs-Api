@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       updated: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     },
     {
-      timestamps: false,
+      // timestamps: false,
       tableName: 'BlogPosts',
     },
   );
