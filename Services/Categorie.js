@@ -9,6 +9,7 @@ const createCategorie = async (name) => {
 
 const getAllCategories = async () => {
   const categories = await Categorie.findAll();
+  console.log('service', categories);
   return categories;
 };
 
