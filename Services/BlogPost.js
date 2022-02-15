@@ -22,12 +22,12 @@ const insertPost = async (title, content, userId) => {
 };
 
 const insertPostCategorie = (arrayCategories, postId) => {
-  Promise.all(arrayCategories.map(async (item) => {
-      await PostsCategorie.create({
-        postId,
-        categorieId: item,
-      });
-    }));
+  Promise.all(arrayCategories.map(async (id) => {
+    await PostsCategorie.create({
+          postId,
+          categoryId: id,
+        });
+  }));
 };
 
 const createPost = async (objPost, userId) => {
@@ -35,7 +35,6 @@ const createPost = async (objPost, userId) => {
   const verifyCategory = await categorieExists(categoryIds);
   if (verifyCategory.message) return verifyCategory;
   const post = await insertPost(title, content, userId);
-  console.log('service', post);
   insertPostCategorie(categoryIds, post.id);
   return {
     id: post.id,
