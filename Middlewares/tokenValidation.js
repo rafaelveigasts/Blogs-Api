@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
+const ServiceUser = require('../Services/User');
 require('dotenv').config();
 
 const secret = process.env.JWT_SECRET;
 
-const checkToken = (req, res, next) => {
+const checkToken = async (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
@@ -11,7 +12,12 @@ const checkToken = (req, res, next) => {
   }
 
   try {
-    jwt.verify(authorization, secret);
+    const decode = jwt.verify(authorization, secret);
+    const user = await ServiceUser.getEmail(decode.user);
+    if (!user) {
+      return res.status(401).json({ message: 'Erro ao procurar usuário do token.' });
+    }
+    req.user = user;
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Expired or invalid token' });
