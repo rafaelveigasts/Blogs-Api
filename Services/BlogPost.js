@@ -1,16 +1,13 @@
-const { BlogPost, PostCategorie, Categorie } = require('../models');
+const { BlogPost, PostsCategorie, Categorie } = require('../models');
 
 const categorieExists = (array) => {
-  const result = array.reduce(async (acc, item) => {
-    const categorie = await Categorie.findByPk(item);
-
+  const result = array.reduce(async (ac, cur) => {
+    const categorie = await Categorie.findByPk(cur);
     if (!categorie) {
-      return {
-        code: 400,
-        message: { message: '"categoryIds" not found' },
-      };
+     return { code: 400, 
+       message: { message: '"categoryIds" not found' } };
     }
-    return acc;
+    return ac;
   }, false);
   return result;
 };
@@ -26,7 +23,7 @@ const insertPost = async (title, content, userId) => {
 
 const insertPostCategorie = (arrayCategories, postId) => {
   Promise.all(arrayCategories.map(async (item) => {
-      await PostCategorie.create({
+      await PostsCategorie.create({
         postId,
         categorieId: item,
       });
@@ -38,7 +35,8 @@ const createPost = async (objPost, userId) => {
   const verifyCategory = await categorieExists(categoryIds);
   if (verifyCategory.message) return verifyCategory;
   const post = await insertPost(title, content, userId);
-  await insertPostCategorie(categoryIds, post.id);
+  console.log('service', post);
+  insertPostCategorie(categoryIds, post.id);
   return {
     id: post.id,
     userId,
