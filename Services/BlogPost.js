@@ -2,7 +2,7 @@ const { BlogPost, PostCategorie, Categorie } = require('../models');
 
 const categorieExists = (array) => {
   const result = array.reduce(async (acc, item) => {
-    const categorie = await Categorie.findbyPk(item);
+    const categorie = await Categorie.findByPk(item);
 
     if (!categorie) {
       return {
@@ -25,14 +25,12 @@ const insertPost = async (title, content, userId) => {
 };
 
 const insertPostCategorie = (arrayCategories, postId) => {
-  Promise.all(
-    arrayCategories.map(async (item) => {
+  Promise.all(arrayCategories.map(async (item) => {
       await PostCategorie.create({
         postId,
         categorieId: item,
       });
-    }),
-  );
+    }));
 };
 
 const createPost = async (objPost, userId) => {
